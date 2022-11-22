@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="videoPlayer.VideoPlayerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:videoPlayer" 
+        xmlns:viewmodels="clr-namespace:videoPlayer.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewmodels:ViewModel}"        
+        Height="500" Width="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisible"/>
+        <CommandConverter x:Key="commandConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="0,0,400,250">
+        <TextBox 
+            Visibility="{Binding IsVisibleStartPanel, Converter={StaticResource boolToVisible}}"
+            Text="{Binding PathVids, Mode=TwoWay}" 
+            Margin="10,101,101,125"
+            />
+
+        <Button   
+            Visibility="{Binding IsVisibleStartPanel, Converter={StaticResource boolToVisible}}"
+            x:Name="ShowControlPanel"
+            Height="24" 
+            Width="24" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Command="{Binding StartVideo}" 
+            Margin="304,101,0,0" 
+            RenderTransformOrigin="0.482,0.498" 
+            Content="ОК"/>
+
+        <TextBlock 
+            Visibility="{Binding IsVisibleStartPanel, Converter={StaticResource boolToVisible}}"
+            HorizontalAlignment="Left" Height="24" Margin="10,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289">
+            <Run Language="ru-ru" Text="Введите путь до видео"/></TextBlock>
+
+        <Button 
+            Visibility="{Binding IsVisibleControlPanel, Converter={StaticResource boolToVisible}}"
+            Height="24" 
+            Command="{Binding ContinueVideo}" 
+            Content="Продолжить" 
+            Margin="59,188,267,38"/>
+        <Button 
+            Visibility="{Binding IsVisibleControlPanel, Converter={StaticResource boolToVisible}}"
+            Height="24" 
+            Command="{Binding PauseVideo}" 
+            Content="Пауза" 
+            Margin="138,188,188,38"/>
+        <Button 
+            Visibility="{Binding IsVisibleControlPanel, Converter={StaticResource boolToVisible}}"
+            Height="24" 
+            Command="{Binding CloseVideo}" 
+            Content="Закрыть" 
+            Margin="217,188,109,38"/>
+    </Grid>
+</UserControl>
